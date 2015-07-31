@@ -3,13 +3,16 @@
 
     var app = angular.module('myApp.purchaseOrder', []);
 
-app
+    app
 
-    .controller('purchaseRequestItemCtrl',
-        function ($q, ESService, screenFormat, myTask, ionicLoading, approveItem, $ionicPopup, $timeout, $scope, $ionicPopover) {
+        .controller('purchaseRequestItemCtrl',
+        function ($q, ESService, screenFormat, myTask, ionicLoading,
+                  approveItem, $ionicPopup, $timeout, $scope, $ionicPopover) {
 
 // .fromTemplate() method
-            var template = '<ion-popover-view><ion-header-bar> <h1 class="title">My Popover Title</h1> </ion-header-bar> <ion-content> Hello! </ion-content></ion-popover-view>';
+            var template = '<ion-popover-view><ion-header-bar> ' +
+                '<h1 class="title">My Popover Title</h1> </ion-header-bar> ' +
+                '<ion-content> Hello! </ion-content></ion-popover-view>';
 
             $scope.popover = $ionicPopover.fromTemplate(template, {
                 scope: $scope
@@ -49,30 +52,35 @@ app
                 var arr = [];
                 var d = $q.defer();
                 var i = 0;
-                angular.forEach(fieldFormatArray, function (value, key) {
-                    if (typeof value.LKP_KEY !== 'undefined' && value.LKP_KEY !== '') {
-                        ESService.lookup(value.LKP_TABLE, value.LKP_KEY,
-                            $scope.data[value.NAME], value.LKP_TEXT,
-                            value.LKP_FOREIGNKEY1, $scope.data[value.LKP_FOREIGNKEY1],
-                            value.LKP_FOREIGNKEY2, $scope.data[value.LKP_FOREIGNKEY2])
+                angular.forEach(fieldFormatArray, function (value) {
+                    //如果要lookup
+                    if (typeof value['LKP_KEY'] !== 'undefined' && value['LKP_KEY'] !== '') {
+                        ESService.lookup(value['LKP_TABLE'], value['LKP_KEY'],
+                            $scope.data[value['NAME']], value['LKP_TEXT'],
+                            value['LKP_FOREIGNKEY1'], $scope.data[value['LKP_FOREIGNKEY1']],
+                            value['LKP_FOREIGNKEY2'], $scope.data[value['LKP_FOREIGNKEY2']])
                             .then(function (result) {
                                 i++;
-                                arr[value.$id] = result+'('+$scope.data[value.NAME]+')';
-                                console.log(key);
-                                if (i == fieldFormatArray.length) {d.resolve(arr)}
+                                arr[value.$id] = result + '(' + $scope.data[value['NAME']] + ')';
+                                //console.log(key);
+                                if (i == fieldFormatArray.length) {
+                                    d.resolve(arr)
+                                }
                             })
                     } else {
                         i++;
                         arr[value.$id] = $scope.data[value.NAME];
-                        if (i == fieldFormatArray.length) {d.resolve(arr)}
+                        if (i == fieldFormatArray.length) {
+                            d.resolve(arr)
+                        }
                     }
                 });
                 return d.promise;
             };
             screenFormat('E0001_header').then(function (data) {
-                    $scope.fieldList=data;
+                    $scope.fieldList = data;
                     $scope.getFieldValue(data).then(function (data) {
-                        $scope.fieldValueArray=data;
+                        $scope.fieldValueArray = data;
                     });
                 }
             );
@@ -151,52 +159,43 @@ app
         console.log($scope.approveInfo);
         $scope.approveInfo.returnTime = new Date($scope.approveInfo.createTime + 1000 * 60 * 10)
         console.log($scope.approveInfo.returnTime);
-
-    });
-    //app.factory('purchaseOrderIndexFactory',
-    //    function (fbutil, $firebaseObject) {
-    //        return function (ref) {
-    //            return $firebaseObject(fbutil.ref([ref]));
-    //        };
-    //    })
-    //;
-
-    app.config(['$stateProvider', function ($stateProvider) {
-        $stateProvider
-            .state('approve-conformation', {
-                url: '/approve-conformation',
-                templateUrl: 'scripts/purchase-orders/approve-conformation.html',
-                controller: 'approveConformationCtrl',
-                cache: false
-            })
-            .state('e0001-header', {
-                url: '/e0001-header/:ref',
-                templateUrl: 'scripts/purchase-orders/e0001-header.html',
-                controller: 'purchaseRequestItemCtrl',
-                cache: true,
-                resolve: {
-                    approveItem: function ($stateParams, fbutil, $firebaseObject) {
-                        return {
-                            event: 'E0002',
-                            obj: $firebaseObject(fbutil.ref([$stateParams.ref]))
-                        };
+    })
+        .config(['$stateProvider', function ($stateProvider) {
+            $stateProvider
+                .state('approve-conformation', {
+                    url: '/approve-conformation',
+                    templateUrl: 'scripts/purchase-orders/approve-conformation.html',
+                    controller: 'approveConformationCtrl',
+                    cache: false
+                })
+                .state('e0001-header', {
+                    url: '/e0001-header/:ref',
+                    templateUrl: 'scripts/purchase-orders/e0001-header.html',
+                    controller: 'purchaseRequestItemCtrl',
+                    cache: true,
+                    resolve: {
+                        approveItem: function ($stateParams, fbutil, $firebaseObject) {
+                            return {
+                                event: 'E0002',
+                                obj: $firebaseObject(fbutil.ref([$stateParams.ref]))
+                            };
+                        }
                     }
-                }
 
-            })
-            .state('purchaseRequestItem', {
-                url: '/purchaseRequestItem/:ref',
-                templateUrl: 'scripts/purchase-orders/purchase-request-item.html',
-                controller: 'purchaseRequestItemCtrl',
-                resolve: {
-                    approveItem: function ($stateParams, fbutil, $firebaseObject) {
-                        return {
-                            event: 'E0005',
-                            obj: $firebaseObject(fbutil.ref([$stateParams.ref]))
-                        };
+                })
+                .state('purchaseRequestItem', {
+                    url: '/purchaseRequestItem/:ref',
+                    templateUrl: 'scripts/purchase-orders/purchase-request-item.html',
+                    controller: 'purchaseRequestItemCtrl',
+                    resolve: {
+                        approveItem: function ($stateParams, fbutil, $firebaseObject) {
+                            return {
+                                event: 'E0005',
+                                obj: $firebaseObject(fbutil.ref([$stateParams.ref]))
+                            };
+                        }
                     }
-                }
 
-            });
-    }]);
+                });
+        }]);
 })(angular);

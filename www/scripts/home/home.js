@@ -21,7 +21,7 @@
                 $ionicSideMenuDelegate.toggleLeft();
             };
 
-            //ionicLoading.load();
+            ionicLoading.load();
             $scope.objectSize = function(obj) {
                 var size = 0, key;
                 for (key in obj) {
@@ -30,6 +30,7 @@
                 return size;
             };
             $scope.$on("rootScopeInit",function(even,data){
+                ionicLoading.unload();
                 if(data===true){
                     $timeout(function() {
                         ionicLoading.unload();
@@ -42,29 +43,6 @@
             });
 
             $scope.viewtitle = angular.uppercase($state.current.name);
-
-            function scopeInit() {
-                //var events = ['E0001', 'E0002', 'E0004', 'E0005'];
-                //angular.forEach(events, function (event) {
-                //        //console.log(event);
-                //        var str = localStorageService.get(event);
-                //
-                //        if (typeof  str !== 'undefined'
-                //            && str !== null) {
-                //            //console.log(str);
-                //            $scope[event] = str;
-                //        } else {
-                //            homeFactory.ready(event).then(function (data) {
-                //                //console.log(data);
-                //                $scope[event] = data;
-                //
-                //                localStorageService.set(event, $scope[event]);
-                //            });
-                //        }
-                //        //console.log($scope.$eval(event));
-                //    }
-                //);
-            }
 
             $scope.$state = $state;
 

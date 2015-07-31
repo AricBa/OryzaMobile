@@ -4,11 +4,45 @@
     var app = angular.module('myApp.purchaseOrderList', []);
 
 
-    app        .controller('ionListESViewCtrl',
-        function (ionicLoading, stateParamsObject, $state,
-                  $location, $timeout, $scope) {
+
+
+    app.controller('taskDetailCtrl',
+        function (returnMessage,ionicLoading, $state,
+                  $location, $timeout, $scope,jsonFactory) {
+            $scope.data=returnMessage;
+        })
+
+        .controller('ionListESViewCtrl',
+        function (ionicLoading, stateParamsObject,$state,
+                  $location, $timeout, $scope,jsonFactory) {
             console.log(stateParamsObject);
-            $scope.data=stateParamsObject;
+            $scope.results = stateParamsObject.array;
+            jsonFactory.hospitals('search-lists').then(function (data) {
+                if(typeof data[stateParamsObject.table].primaryKey === 'string'){
+
+                    $scope.primaryKey = data[stateParamsObject.table].primaryKey;
+                }else{
+                    $scope.primaryKeys=[];
+                    angular.forEach(data[stateParamsObject.table].primaryKey,function(key){
+                        $scope.primaryKeys.push(key);
+                    });
+                }
+
+
+                $scope.searchLink = data[stateParamsObject.table].searchLink;
+            });
+            $scope.go= function (data) {
+                var valueArr=[];
+                angular.forEach($scope.primaryKeys,function(key){
+                    valueArr.push(data[key]);
+
+                });
+                //console.log(valueArr);
+                //console.log($scope.primaryKeys);
+                $state.go('searchDetail',
+                    {table:$scope.searchLink,key:$scope.primaryKeys,value:valueArr});
+
+            }
         })
         .controller('ionListViewCtrl',
         function (ionicLoading, stateParamsObject, $firebaseArray, $state,
@@ -24,7 +58,8 @@
                 return deferred.promise;
             };
 
-            var scrollRef = new Firebase.util.Scroll($scope.stateParamsObject.ref, $scope.stateParamsObject.scroll);
+            var scrollRef = new Firebase.util
+                .Scroll($scope.stateParamsObject.ref, $scope.stateParamsObject.scroll);
 
             ionicLoading.load('loading');
             // create a synchronized array on scope

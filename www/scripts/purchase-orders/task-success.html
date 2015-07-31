@@ -1,0 +1,52 @@
+<ion-view view-title="Conformation" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <button ui-sref="home"
+                class="button button-icon button-clear ion-android-arrow-back">
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="view-title">{{'success' | translate}}</div>
+    </ion-nav-title>
+    <!--<div class="buttons buttons-right header-item">-->
+        <!--<span class="right-buttons">-->
+            <!--<button class="button button-balanced button-fab">-->
+                <!--<i class="icon ion-star">-->
+                <!--</i>-->
+            <!--</button>-->
+        <!--</span>-->
+    <!--</div>-->
+
+    <ion-content>
+        <div class="list list-inset">
+            <div class="item item-text-wrap">
+                <span am-time-ago="approveInfo.createTime"></span>
+                {{ approveInfo.keyText }}: {{ approveInfo.keyID }} has been send to server.
+            </div>
+            <div class="item">
+                <div>It will be created in SAP after 10 mins.</div>
+                <div>estimated time:{{approveInfo.returnTime  | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+            </div>
+        </div>
+        <!--<ion-list>-->
+        <!--<ion-item class="item-text-wrap">-->
+        <!--<div>-->
+        <!--{{ approveInfo.keyText }}: {{ approveInfo.keyID }} has been send to server.-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<span am-time-ago="approveInfo.createTime"></span>-->
+        <!--</div>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="item-text-wrap">-->
+        <!--<div>It will be created in SAP after 10 mins.</div>-->
+        <!--<div>estimated time:{{approveInfo.returnTime  | date:'yyyy-MM-dd HH:mm:ss'}}</div>-->
+        <!--</ion-item>-->
+
+
+        <!--</ion-list>-->
+
+
+    </ion-content>
+</ion-view>
+
+
+

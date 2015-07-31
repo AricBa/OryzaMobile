@@ -12,7 +12,7 @@ angular.module('myApp.directives.createTask', [])
                 popup: '=',// Use @ for One Way Text Binding;Use = for Two Way Binding;Use & to Execute Functions in the Parent Scope
                 taskData: '='
             },
-            controller: function (ionicLoading, $ionicPopup, $timeout, $scope,$state) {
+            controller: function (ionicLoading, $ionicPopup, $timeout, $scope, $state) {
                 $scope.$watch('popup', function (newVal) {
                     if (angular.isUndefined(newVal) || newVal == null) {
                         return
@@ -34,17 +34,18 @@ angular.module('myApp.directives.createTask', [])
                         if (res) {
                             ionicLoading.load('Sending out');
                             console.log($scope.taskData);
-                            myTask.createTask($scope.taskData.event, $scope.taskData.serverUserID, $scope.taskData.inputParasRef,$scope.taskData.jsonContent)
+                            myTask.createTask($scope.taskData.event, $scope.taskData.serverUserID,
+                                $scope.taskData.inputParasRef, $scope.taskData.jsonContent)
                                 .then(function (data) {
                                     // promise fulfilled
-                                    console.log('Success!', data);
-                                    ionicLoading.unload();
-                                    approveInfoService.addApproveInfo({
-                                        keyText: $scope.popup.title,
-                                        keyID: $scope.popup.template,
-                                        createTime: new Date().getTime()
-                                    });
-                                    $state.go('approve-conformation');
+                                    //console.log('Success!', data);
+                                    //ionicLoading.unload();
+                                    //approveInfoService.addApproveInfo({
+                                    //    keyText: $scope.popup.title,
+                                    //    keyID: $scope.popup.template,
+                                    //    createTime: new Date().getTime()
+                                    //});
+                                    $state.go('task-success');
 
                                 }, function (error) {
                                     ionicLoading.load(error);
@@ -52,14 +53,20 @@ angular.module('myApp.directives.createTask', [])
                                     $timeout(function () {
                                         ionicLoading.unload();
                                     }, 1000);
-                                    approveInfoService.addApproveInfo({
-                                        keyText: $scope.keyText,
-                                        keyID: $scope.keyID,
-                                        createTime: new Date().getTime()
-                                    });
+
                                     $scope.approveInfo = approveInfoService.getApproveInfo();
                                     console.log($scope.approveInfo);
                                     //$state.go('approve-conformation');
+                                })
+                                .catch(function(err){
+                                    console.log('Success!', err);
+                                    ionicLoading.unload();
+                                    approveInfoService.addApproveInfo({
+                                        keyText: $scope.popup.title,
+                                        keyID: $scope.popup.template,
+                                        createTime: new Date().getTime()
+                                    });
+                                    $state.go('approve-conformation');
                                 })
                                 .finally(function () {
                                     //$scope.data.lock = true;

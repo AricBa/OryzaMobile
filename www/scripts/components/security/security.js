@@ -47,7 +47,7 @@
         })
 
         // rootScrop Initialization
-        .run(function ($rootScope, fbutil, Auth, $q,
+        .run(function ($rootScope, $location,fbutil, Auth, $q,
                        loginRedirectPath, $firebaseAuth, $firebase, $timeout, $firebaseObject) {
 
 
@@ -78,12 +78,16 @@
                     });
 
                     $firebaseObject(ref)
-                        .$bindTo($rootScope, 'profiles').then(function (data) {
-                            //$rootScope.initialize=true;
+                        .$bindTo($rootScope, 'profiles').then(function () {
+                            //if(typeof $rootScope.profiles['SAPUser'] ==="undefined"){
+                            //
+                            //}else{
+                            //    $location.path('/addSAPUser');
+                            //}
+                            $rootScope.serverUser=$rootScope.profiles.serverUser;
                             $rootScope.$broadcast('rootScopeInit',true);
-                            console.log($rootScope.profiles.serverUserID);
 
-                            var ref = fbutil.ref(['tasks', $rootScope.profiles.serverUserID]);
+                            var ref = fbutil.ref(['tasks', $rootScope.profiles.serverUser]);
 
                             ref.on('child_changed', function (childSnapshot, prevChildKey) {
                                 console.log(childSnapshot.key());

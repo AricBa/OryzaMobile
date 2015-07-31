@@ -1,6 +1,6 @@
 <ion-view hide-back-button="true">
     <ion-nav-title>
-        <div class="view-title">{{stateParamsObject.viewName | translate}}</div>
+        <div class="view-title">{{searchLink.toString() | translate }}</div>
     </ion-nav-title>
     <ion-nav-buttons side="right">
         <button
@@ -12,12 +12,29 @@
         <ion-refresher on-refresh="refresh()"></ion-refresher>
         <div class="subtitle">Today</div>
         <ion-list can-swipe="true">
-            <div ng-show="value" ng-repeat="(key,value) in data ">
-                <div class="flex-container wrap">
-                    <div class="column bodyFont1">{{key | translate}}</div>
-                    <div class="column bodyFont2">{{value}}</div>
+            <ion-item ng-show="!primaryKeys" ng-repeat="data in results "
+                       ui-sref="searchDetail({table:searchLink,key:primaryKey,value:data[primaryKey]})"
+                       class="listItem">{{data[primaryKey]}}{{primaryKey}}
+                <div ng-show="value" ng-repeat="(key,value) in data ">
+                    <div class="flex-container wrap">
+                        <div class="column bodyFont1">{{key | translate}}</div>
+                        <div class="column bodyFont2 item-text-wrap">{{value}}</div>
+                    </div>
                 </div>
-            </div>
+                <!--<span ng-show="value" ng-repeat="(key,value) in data">-->
+                        <!--{{key | translate}}: {{value}}-->
+                    <!--</span>-->
+            </ion-item>
+            <ion-item ng-show="primaryKeys" ng-repeat="data in results "
+                      ng-click="go(data)"
+                      class="listItem">{{primaryKeys}}
+                <div ng-show="value" ng-repeat="(key,value) in data ">
+                    <div class="flex-container wrap">
+                        <div class="column bodyFont1">{{key | translate}}</div>
+                        <div class="column bodyFont2 item-text-wrap">{{value}}</div>
+                    </div>
+                </div>
+            </ion-item>
             <!--show-delete="false"--><!--show-reorder="false"-->
             <!--<ng-include src="'scripts/purchase-orders/' + lowercase_viewName + '.html'">-->
             <!--</ng-include>-->

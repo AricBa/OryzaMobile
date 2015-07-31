@@ -1,22 +1,24 @@
 <ion-view hide-nav-bar="true">
     <ion-header-bar class="bar-positive bar-header2">
         <div class="row">
-            <div class="col ">
+            <div class="col col-10">
                 <button ng-if="$root.showCustomBack" ng-click="$root.goBack()"
                         class=" button-icon button-clear nav-left-button ion-android-arrow-back">
                 </button>
             </div>
-            <div class="col col-80">
+            <div class="col col-60">
                 <div class="row responsive-sm">
-                    <div class="col bar-text">{{title}}</div>
+                    <div class="col bar-text ">{{searchLink.toString()|translate}}</div>
+                </div>
+                <div class="row responsive-sm">
+                    <div class="col bar-text">{{viewKey}}</div>
                 </div>
             </div>
             <div class="col " >
-                <div ng-repeat="link in popupLinks">
+                <div ng-repeat="link in popupLinks">{{link}}
                     <button ui-sref="ionListESView({table:link,key:keyName,value:keyValue})"
                             class=" button-icon button-clear nav-left-button ion-android-arrow-forward">
                     </button>
-
                 </div>
             </div>
         </div>
@@ -24,17 +26,23 @@
     <ion-content class="has-header2" has-header="true" padding="true">
         <ion-refresher on-refresh="refresh()"></ion-refresher>
 
-            <div class="list">
-                <div class="item item-divider">
-                    {{result.text}}
-                </div>
+        <div class="low-pad-item item-icon-right"
+             ng-repeat="field in fieldFormatArray | orderBy:'SORT_BY'"
+                ng-show="fieldValueArray[field['FIELDNAME']]">
+            <div class="flex-container wrap">
+                <div class="column bodyFont1">{{field['FIELDNAME'] | translate}}</div>
+                <div class="column bodyFont2">{{fieldValueArray[field['FIELDNAME']]}}</div>
             </div>
-            <div ng-show="value" ng-repeat="(key,value) in results ">
-                <div class="flex-container wrap">
-                    <div class="column bodyFont1">{{key | translate}}</div>
-                    <div class="column bodyFont2">{{value}}</div>
-                </div>
-            </div>
+            <i class="icon ion-chevron-right icon-accessory" ng-show="{{field['DM_LKP_FLAG']=='X'}}"></i>
+        </div>
+
+
+            <!--<div ng-show="value" ng-repeat="(key,value) in results ">-->
+                <!--<div class="flex-container wrap">-->
+                    <!--<div class="column bodyFont1">{{key | translate}}</div>-->
+                    <!--<div class="column bodyFont2">{{value}}</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
     </ion-content>
     <div class="bar bar-footer bar-positive-400">

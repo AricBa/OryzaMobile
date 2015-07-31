@@ -1,11 +1,53 @@
 {
-  "e0015_kna1": {
-    "searchLink": [
-      "e0015_kna1"
+  "E0001_PO_HEADERS": {
+    "searchLink": "E0001_PO_HEADERS",
+    "formatLink": [
+      "BAPIEKKOL"
     ],
     "popupLinks": [
-      "e0015_knvk",
-      "e0015_vbak"
+      "E0001_PO_ITEMS"
+    ],
+    "primaryKey": [
+      "JCO_USER",
+      "PO_NUMBER"
+    ],
+    "taskInputParas": [
+      "JCO_USER",
+      "PO_NUMBER"
+    ]
+  },
+  "E0001_PO_ITEMS": {
+    "searchLink": "E0001_PO_ITEMS",
+    "formatLink": [
+      "BAPIEKPOC"
+    ],
+    "primaryKey": [
+      "JCO_USER",
+      "PO_ITEM",
+      "PO_NUMBER"
+    ],
+    "selectFields": [
+      "KUNNR",
+      "ORT01",
+      "NAME1",
+      "NAME2",
+      "LAND1"
+    ],
+    "whereFields": [
+      "NAME1",
+      "NAME2",
+      "ORT01",
+      "KUNNR"
+    ]
+  },
+  "E0015_KNA1": {
+    "searchLink": "E0015_KNA1",
+    "formatLink": [
+      "KNA1"
+    ],
+    "popupLinks": [
+      "E0015_KNVK",
+      "E0015_VBAK"
     ],
     "primaryKey": "KUNNR",
     "selectFields": [
@@ -18,12 +60,36 @@
     "whereFields": [
       "NAME1",
       "NAME2",
-      "ORT01"
+      "ORT01",
+      "KUNNR"
     ]
   },
-  "e0015_makt":{
+  "E0015_KNVK": {
+    "searchLink": "E0015_KNVK",
+    "formatLink": [
+      "KNVK"
+    ],
+    "primaryKey": "PARNR"
+  },
+  "E0015_VBAK": {
+    "searchLink": "E0015_VBAK",
+    "popupLinks": [
+      "E0015_VBAP"
+    ],
+    "primaryKey": "VBELN"
+  },
+  "E0015_VBAP": {
     "searchLink": [
-      "e0015_mara"
+      "E0015_VBAP"
+    ],
+    "primaryKey": [
+      "VBELN",
+      "POSNR"
+    ]
+  },
+  "E0015_MAKT": {
+    "searchLink": [
+      "E0015_MARA"
     ],
     "popupLinks": [
       "e0015_mard"
@@ -38,10 +104,22 @@
       "MATNR"
     ]
   },
-  "e0015_mara":{
-
+  "e0015_mara": {
+    "searchLink": [
+      "e0015_mara"
+    ],
     "popupLinks": [
       "e0015_mard"
+    ],
+    "primaryKey": "MATNR"
+  },
+  "e0015_mard": {
+    "searchLink": [
+      "e0015_mard"
+    ],
+    "primaryKey": [
+      "MATNR",
+      "WERKS"
     ]
   }
 }

@@ -1,0 +1,24 @@
+<ion-view >
+    <ion-content>
+        <ion-list>
+            <div class="item low-pad-item item-icon-right"
+                 ng-repeat="(key,value) in data" >
+                <div class="flex-container wrap">
+                    <div class="column bodyFont1">{{key}}</div>
+                    <div class="column bodyFont2">{{value}}</div>
+                </div>
+            </div>
+        </ion-list>
+    </ion-content>
+    <div class="bar bar-footer bar-positive-400">
+        <!--<div class="title">Footer</div>-->
+        <div class="buttons buttons-right">
+            <!--<button class="button button-energized-900 button-fab"><i class="icon ion-code light"></i></button>-->
+            <create-task class="button button-energized-900 button-fab button-icon" button-text="approve" popup="popup"
+                         task-data="taskData"><i class="icon ion-code light"></i></create-task>
+        </div>
+    </div>
+</ion-view>
+
+
+

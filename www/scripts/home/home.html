@@ -37,18 +37,20 @@
                 {{ 'outBox' | translate }}
             </div>
             <div>
-            <div class="buttons button-small" ui-sref="ionListView({viewName:'tasks',index:'tasks/100001'})">
-                <a class="button" ui-sref="e0023"> {{ 'outBox' | translate }}</a>
-            </div></div>
+                <div class="buttons button-small">
+                    <a class="button" ui-sref="ionListView({viewName:'tasks',index:'tasks/'+serverUser})"> {{ 'outBox' |
+                        translate }}</a>
+                </div>
+            </div>
             <div class="item item-divider ">
                 {{ 'action' | translate }}
-            </div><div>
-            <div class="buttons button-small">
-                <a class="button" ui-sref="e0023">Time-Sheet create</a>
-                <a class="button">vcvcv</a>
-                <a class="button">vcvcv</a>
-                <a class="button">vcvcv</a>
-            </div></div>
+            </div>
+            <div>
+                <div class="buttons button-small">
+                    <a class="button" ui-sref="e0023">Time-Sheet create</a>
+                    <a class="button">button</a>
+                </div>
+            </div>
         </div>
     </ion-content>
 </ion-view>

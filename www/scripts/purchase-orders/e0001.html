@@ -1,6 +1,9 @@
 <ion-item ng-repeat="item in ionList.array"
           class=" listItem"
-          ui-sref="e0001-header({ref:ionList.ref+'/'+ item.$id})">
+    ui-sref="searchDetail({table:'E0001_PO_HEADERS',key:['JCO_USER','PO_NUMBER'],value:[serverUser,item.$id]})">
+
+    <!--ui-sref="e0001-header({ref:ionList.ref+'/'+ item.$id})">-->
+
     <div class="row ">
         <div class="col col-50 bodyFont2" ng-class="{positive: item.read, energized: item.favorite}">{{ item.$id}}</div>
         <div class="col col-50 bodyFont1">{{ item.TARGET_VAL | currency: item.CURRENCY_ISO}}</div>

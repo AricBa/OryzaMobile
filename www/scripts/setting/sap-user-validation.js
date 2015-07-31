@@ -4,7 +4,27 @@
     var app = angular.module('myApp.sapValidation', ['ionic', 'firebase.simpleLogin',
         'firebase.utils', 'firebase']);
 
-    app
+    app.controller('addSAPUserCtrl',
+        function ($firebaseObject, $rootScope, fbutil, $q, homeFactory, myTask, $scope, ionicLoading, $ionicPopup) {
+            var event='A0001';
+            $scope.popup = {
+                title: '',
+                template: ''
+            };
+            console.log($rootScope.serverUser);
+            $scope.$watch('user',function(oldvalue,newvalue){
+                console.log(oldvalue+' '+newvalue);
+            });
+            $scope.user='LIMIL';
+            $scope.password='mingming';
+            $scope.language='E';
+            $scope.taskData = {
+                event: event,
+                serverUserID: $rootScope.serverUser, //$scope.ServerUserID
+                inputParasRef: $scope.user+'/'+$scope.password+'/'+$scope.language,
+                jsonContent: ''
+            };
+        })
         .controller('A0001Ctrl',
         function ($firebaseObject, $rootScope, fbutil, $q, homeFactory, myTask, $scope, ionicLoading, $ionicPopup) {
 
@@ -44,7 +64,7 @@
                             d.resolve(data);
                         }
                     });
-                }).catch(function(error){
+                }).catch(function (error) {
                     console.log(error);
                 });
                 return d.promise;

@@ -1,11 +1,15 @@
 <ion-item ng-repeat="item in ionList.array | orderObjectBy:'item.$id':true"
           class="item item-text-wrap"
-          ui-sref="taskDetail({ref:item.TASK_INFO.fb_FROM_PATH})"
-          eat-click-if="item.RETURN">
+          ui-sref="taskDetail({task:item.$id})"
+          eat-click-if="!item.RETURN">
+
+    <!---->
+
     <div>
         <strong ng-hide="item.TASK_INFO.task_status">
             {{ item.$id}} Sending...
         </strong>
+        {{item.ref()}}
         <strong ng-class="{positive: item.read}" ng-show="item.TASK_INFO.task_status">
             {{ item.$id}} {{ item.TASK_INFO.purchaseorder}}
             <i ng-show="item.TASK_INFO.task_status==3 && item.RETURN.TYPE !== ('E'||'A')"

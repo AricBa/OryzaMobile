@@ -23,13 +23,19 @@
                 <i class="icon ion-android-delete muted" ng-click="deleteHistory(result)"></i>
             </div>
         </div>
+        <div class="card search-card" ng-show="err">
+            <div class="item item-divider item-icon-right ">
+                <div class="bodyFont2">{{err}}</div>
+            </div>
+        </div>
         <ion-list>
             <ion-item class="item-remove-animate item-icon-right search-item" ng-repeat="result in results">
-                <div
+                <line>--------------------</line>
+                <div class="item-text-wrap"
                      ui-sref="searchDetail({table:searchLink,key:primaryKey,value:result[primaryKey]})">
-                    <div ng-repeat="field in selectFields">
-                        {{field}}: {{result[field]}}
-                    </div>
+                    <span ng-show="result[field]" ng-repeat="field in selectFields">
+                        {{field | translate}}: {{result[field]}}
+                    </span>
                     <!--<h2 class="icon-left">{{result.title}}</h2>-->
                     <!--{{result.KUNNR}} {{result.NAME1}}-->
                     <!--<div class="icon-left ion-ios-home location_info">-->
@@ -39,21 +45,21 @@
                 </div>
 
                 <!--<div ng-show="searchObj.text==='material'"-->
-                     <!--ui-sref="searchDetail({key:'material',index:result.MATNR})">-->
-                    <!--<p>{{result.MAKTX}}</p>-->
-                    <!--{{result.MATNR}}-->
-                    <!--<i class="icon ion-ios-arrow-right muted"></i>-->
+                <!--ui-sref="searchDetail({key:'material',index:result.MATNR})">-->
+                <!--<p>{{result.MAKTX}}</p>-->
+                <!--{{result.MATNR}}-->
+                <!--<i class="icon ion-ios-arrow-right muted"></i>-->
                 <!--</div>-->
                 <div ng-show="searchObj.text==='customer'"
                      ui-sref="searchDetail({table:table,key:primaryKey,value:result[primaryKey]})">
                     <div ng-repeat="field in selectFields">
-                       {{field}}: {{result[field]}}
+                        {{field}}: {{result[field]}}
                     </div>
                     <!--<h2 class="icon-left">{{result.title}}</h2>-->
                     <!--{{result.KUNNR}} {{result.NAME1}}-->
                     <!--<div class="icon-left ion-ios-home location_info">-->
-                        <!--{{result.ADRNR}}{{result.ERNAM}}-->
-                        <!--{{ result.TELF1 }}-->
+                    <!--{{result.ADRNR}}{{result.ERNAM}}-->
+                    <!--{{ result.TELF1 }}-->
                     <!--</div>-->
                 </div>
                 <div ng-show="searchObj.text==='vendor'"

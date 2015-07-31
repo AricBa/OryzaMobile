@@ -1,0 +1,25 @@
+<ion-view hide-nav-bar="true">
+    <ion-content has-header="true" has-tabs="true" padding="true">
+        <ion-nav-buttons side="right">
+            <button ng-click="showPopup()"
+                    class=" button-icon button-clear right-button ion-information-circled">
+            </button>
+        </ion-nav-buttons>
+        <form name="validation" ng-submit="tryValidation()">
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <input type="text" placeholder="Username" ng-model="user">
+                </label>
+                <label class="item item-input">
+                    <input type="password" placeholder="Password" ng-model="password">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Language" ng-model="language">
+                </label>
+            </div>
+            <create-task class="button button-block button-positive" button-text="submit" popup="popup"
+                         task-data="taskData" type="submit"></create-task>
+        </form>
+    </ion-content>
+</ion-view>
+
